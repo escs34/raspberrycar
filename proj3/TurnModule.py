@@ -122,6 +122,7 @@ RightPwm=GPIO.PWM(MotorRight_PWM,100)
 # perform right swing turn of 90 degree  
 # =======================================================================
 def rightSwingTurn(speed, running_time):
+    #this isn't good. maybe car is turned while sensor distanceis not under 50
     # set the left motor to go fowrard
     leftmotor(forward0)
     #leftmotor(forward1)
@@ -167,10 +168,11 @@ def leftSwingTurn(speed, running_time):
 # ======================================================================
 
 def rightPointTurn(speed, running_time):  # student assignment (1)
-
+	dummy=1
 
 #=======================================================================
 # perform left point turn of 90 degree   # student assignment (2)
 # ======================================================================
 
 def leftPointTurn(speed, running_time):  # student assignment (2)
+	dummy=1

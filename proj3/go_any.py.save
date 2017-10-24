@@ -74,7 +74,7 @@ def leftmotor(x):
         GPIO.output(MotorLeft_A, GPIO.LOW)
         GPIO.output(MotorLeft_B, GPIO.HIGH)
     elif x == False:
-        GPIO.output(MotorLeft_A, GPIO.HIGH)
+-        GPIO.output(MotorLeft_A, GPIO.HIGH)
         GPIO.output(MotorLeft_B, GPIO.LOW)
     else:
         print
@@ -140,10 +140,10 @@ def go_forward_any(speed):
 	GPIO.output(MotorLeft_PWM,GPIO.HIGH)
 	GPIO.output(MotorRight_PWM,GPIO.HIGH)
 
-	LeftPwm.ChangeDutyCycle(speed)
-	RightPwm.ChangeDutyCycle(speed)
+	leftPwm.changeDutyCycle(speed)
+	rightPwm.changeDutyCycle(speed)
 
-	#sleep(1)#sleep(time): run for 'time' seconds
+	sleep(1)
 
 
 # student assignment (4)

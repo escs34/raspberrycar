@@ -134,7 +134,6 @@ RightPwm=GPIO.PWM(MotorRight_PWM,100)
 # forward has the parameters of speed and running_time 
 def go_forward(speed, running_time):
     # set the left motor to go forward
-    leftmotor(forward0)
     #GPIO.output(MotorLeft_A,GPIO.HIGH)
     #GPIO.output(MotorLeft_B,GPIO.LOW)
 
@@ -143,13 +142,15 @@ def go_forward(speed, running_time):
     # in MotorLeft_A and MotorLeft_B 
     # or use leftmotor(forward1)
     #------------------------------------------------------------
-    #leftmotor(forward1)
-
-
-    GPIO.output(MotorLeft_PWM,GPIO.HIGH)
-    
-    # set the right motor to go forward
+   
+    #leftmotor(forward0)   
     rightmotor(forward0)
+    leftmotor(forward0)
+    GPIO.output(MotorRight_PWM, GPIO.HIGH)
+    GPIO.output(MotorLeft_PWM,GPIO.HIGH)
+    #GPIO.output(MotorRight_PWM, GPIO.HIGH)    
+    # set the right motor to go forward
+    
     #GPIO.output(MotorRight_A,GPIO.LOW)
     #GPIO.output(MotorRight_B,GPIO.HIGH)
 
@@ -160,14 +161,15 @@ def go_forward(speed, running_time):
     #------------------------------------------------------------
     #rightmotor(forward1)
 
-
-    GPIO.output(MotorRight_PWM,GPIO.HIGH)
-    # set the speed of the left motor to go forward
-    LeftPwm.ChangeDutyCycle(speed)
-    # set the speed of the right motor to go forward
-    RightPwm.ChangeDutyCycle(speed)
-    # set the running time of the left motor to go forward
-    sleep(running_time)
+    if speed <5 | speed>95 :
+	print("need more power or less power")
+    else:
+    	# set the speed of the left motor to go forward
+    	LeftPwm.ChangeDutyCycle(speed)
+    	# set the speed of the right motor to go forward
+    	RightPwm.ChangeDutyCycle(speed-0.46)#3.1
+    	# set the running time of the left motor to go forward
+    	sleep(running_time)
 # =======================================================================
 
 # =======================================================================
@@ -179,7 +181,7 @@ def go_backward(speed, running_time):
     leftmotor(backward0)
     #GPIO.output(MotorLeft_A,GPIO.HIGH)
     #GPIO.output(MotorLeft_B,GPIO.LOW)
-
+    rightmotor(backward0)
     #------------------------------------------------------------
     # if you have different direction, you need to change HIGH to LOW
     # in MotorLeft_A and MotorLeft_B 
@@ -189,9 +191,8 @@ def go_backward(speed, running_time):
 
 
     GPIO.output(MotorLeft_PWM,GPIO.HIGH)
-    
+    GPIO.output(MotorRight_PWM,GPIO.HIGH)
     # set the right motor to go forward
-    rightmotor(backward0)
     #GPIO.output(MotorRight_A,GPIO.LOW)
     #GPIO.output(MotorRight_B,GPIO.HIGH)
 
@@ -202,14 +203,15 @@ def go_backward(speed, running_time):
     #------------------------------------------------------------
     #rightmotor(forward1)
 
-
-    GPIO.output(MotorRight_PWM,GPIO.HIGH)
-    # set the speed of the left motor to go forward
-    LeftPwm.ChangeDutyCycle(speed)
-    # set the speed of the right motor to go forward
-    RightPwm.ChangeDutyCycle(speed)
-    # set the running time of the left motor to go forward
-    sleep(running_time)
+    if speed <5 | speed >95:
+	print("??")
+    else:
+   	 # set the speed of the left motor to go forward
+    	LeftPwm.ChangeDutyCycle(speed)
+    	# set the speed of the right motor to go forward
+    	RightPwm.ChangeDutyCycle(speed-4.2)
+    	# set the running time of the left motor to go forward
+    	sleep(running_time)
 
 
 
@@ -236,7 +238,11 @@ try:
     LeftPwm.start(0)
     RightPwm.start(0)
     # command for forwarding with speed of 40 and time 3 seconds
-    go_forward(40, 3)
+    #go_forward(40,1)
+    #sleep(1)
+    go_backward(40,1)
+    sleep(1)
+    '''go_forward(40, 3)
     sleep(1)
     go_backward(40, 3)
     sleep(1)
@@ -250,7 +256,7 @@ try:
     sleep(1)
     go_backward(80, 3)
     sleep(1)
-    
+    '''
     # command for stop
     stop()
 

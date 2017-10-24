@@ -34,3 +34,7 @@ def getDistance():
     distance=pulse_duration*17000
     distance=round(distance,2)
     return distance
+
+if __name__ == '__main__':
+	dis=getDistance()
+	print(dis)

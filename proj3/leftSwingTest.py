@@ -75,14 +75,20 @@ try:
 
         # when the distance is above the dis, moving object forwards
         if (distance > dis):
-            go_forward_any(50)
+	    print("now i'm going")
+            go_forward_any(30)
             print('obstacle=', obstacle)
 
         # when the distance is below the dis, moving object stops
         else:
+	    #stop the motor before turning, if not, run speed influence the turning speed
+	    stop()
+	    print("turned~")
+	    leftSwingTurn(48, 1)
             # stop and wait 1 second
             stop()
             sleep(1)
+	    break
 
 
             ########################################################
@@ -96,3 +102,6 @@ try:
 
 except KeyboardInterrupt:
     pwm_low()
+
+finally:
+    stop()

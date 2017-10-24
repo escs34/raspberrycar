@@ -1,6 +1,6 @@
 ######################################################################
 ### Date: 2017/10/5
-### file name: rightTest.py(기역자 턴)
+### file name: rightTest.py(r shape turn)
 ### Purpose: this code has been generated for the three-wheeled moving
 ###         object to perform the project3 with ultra sensor
 ###         swing turn, and point turn
@@ -75,15 +75,19 @@ try:
 
         # when the distance is above the dis, moving object forwards
         if (distance > dis):
-            go_forward_any(50)
+            go_forward_any(30)
+	    print("now i'am going")
             print('obstacle=', obstacle)
 
         # when the distance is below the dis, moving object stops
         else:
-	    rightSwingTurn(40,1)
+	    stop()
+	    rightSwingTurn(53,1)#go reverse 'r'shape
+	    print("turn around")
             # stop and wait 1 second
-            stop()
-            sleep(1)
+	    stop()
+	    sleep(1)
+	    #break
 
 
             ########################################################
@@ -97,3 +101,7 @@ try:
 
 except KeyboardInterrupt:
     pwm_low()
+
+finally:
+    print("stopped")
+    stop()
