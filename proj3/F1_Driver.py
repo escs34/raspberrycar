@@ -30,7 +30,7 @@ def right_point_turn(speed, duration_time, A):#left moter true, right motor fals
 
 if __name__ == "__main__":
 	A=PPicar.PPicar()
-	go_forward(40, 3, A)
+	go_forward(40, 1, A)
 	#go_backward(40, 3, A)
 
 	#go_forward(60, 3, A)
