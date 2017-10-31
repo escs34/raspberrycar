@@ -26,6 +26,22 @@ def right_point_turn(speed):#left moter true, right motor false
 
 #need print current status
 
+
+##################################################
+#
+#	Mission: Line tracking
+#
+#	1. input==1, excel to left
+#	2. input==4, go_forward	
+#	###move block unit
+#  1 2 4 8 16
+
+
+
+
+
+
+
 if __name__ == "__main__":
 	dis=20
 	obs=1

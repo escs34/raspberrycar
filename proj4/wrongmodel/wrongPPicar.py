@@ -1,5 +1,5 @@
 import RPi.GPIO as GPIO
-from time import sleep
+from ultraModule import getDistance
 
 class PPicar:
        	GPIO.setmode(GPIO.BOARD)
@@ -27,43 +27,41 @@ class PPicar:
 	LeftPwm=GPIO.PWM(MOTOR_LEFT_PWM, 100)#create PWM
 	RightPwm=GPIO.PWM(MOTOR_RIGHT_PWM, 100)
 	
-
+	#constructor
 	def __init__(self):
 		self.LeftPwm.start(0)
 		self.RightPwm.start(0)
 		print("PPika!")
 
-                #public method
-	def go(self, leftDirection, rightDirection, leftSpeed, rightSpeed, duration):
+        #public method
+	def engine(self, leftDirection, rightDirection, leftSpeed, rightSpeed):
 		self.setDirection(leftDirection, rightDirection)#set direction
 		self.setSpeed(leftSpeed, rightSpeed)#set speed
-		sleep(duration)#set duration time
-                print("here")
-		
+	
+	def stop(self):
+		GPIO.output(self.MOTOR_LEFT_PWM, GPIO.LOW)
+		GPIO.output(self.MOTOR_RIGHT_PWM, GPIO.LOW)
+		self.LeftPwm.ChangeDutyCycle(0)
+		self.RightPwm.ChangeDutyCycle(0)
+	
+
+
 	#private method
 	def REVERSE(self,x):
 		return not x
 
 	def setDirection(self, leftDirection, rightDirection):
 		GPIO.output(self.MOTOR_LEFT_A, not leftDirection)#left motor
-		GPIO.output(self.MOTOR_LEFT_B, )
+		GPIO.output(self.MOTOR_LEFT_B, leftDirection)
 
 		GPIO.output(self.MOTOR_RIGHT_A, rightDirection)#right motor
 		GPIO.output(self.MOTOR_RIGHT_B, not rightDirection)
 
 	def setSpeed(self, leftSpeed, rightSpeed):
+		GPIO.output(self.MOTOR_LEFT_PWM, GPIO.HIGH)
+		GPIO.output(self.MOTOR_RIGHT_PWM, GPIO.HIGH)
 		self.LeftPwm.ChangeDutyCycle(leftSpeed)
 		self.RightPwm.ChangeDutyCycle(rightSpeed)
-		
-
-if __name__ == "__main__":
-        A=PPicar()
-	A.go(True, True, 40, 40, 3)
-        A.go(True, True, 0, 0, 1)
-
-
-
-
 
 
 

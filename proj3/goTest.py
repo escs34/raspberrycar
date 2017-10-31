@@ -9,6 +9,9 @@ def go_forward(speed):
 def go_backward(speed):
 	PPicar.engine(False, False, speed, speed-4.8)
 	
+def stop():
+	PPicar.engine(True, True, 0, 0)
+
 #left swing turn : only right motor
 def left_swing_turn():
 	PPicar.engine(True, True, 0, 48)
@@ -27,21 +30,39 @@ def right_point_turn(speed):#left moter true, right motor false
 #need print current status
 
 if __name__ == "__main__":
-	dis=20
-	obs=1
 	PPicar.startUp()
+
+	go_forward(50)
+	sleep(1)
+	go_backward(50)
+	sleep(1)
+	'''sleep(0.2)
+	stop()
+	sleep(0.2)
 	
-	while obs<3:
-		distance = ultraModule.getDistance()
-		if distance > dis
-			go_forward(25)
-		else:
-			PPicar.stop()
-			left_swing_turn()
-			obs+=1
-			PPicar.stop()
-			sleep(1)	
-	PPicar.stop()
+	go_forward(50)
+	sleep(0.2)
+	stop()
+
+	sleep(0.2)
+
+	go_forward(50)
+	sleep(0.2)
+	stop()
+	sleep(0.2)
+
+	go_forward(50)
+	sleep(0.2)
+	stop()
+	sleep(0.2)
+
+	go_forward(50)
+	sleep(0.2)
+	stop()
+	sleep(0.2)'''
+	
+	
+	PPicar.turnOff()
 	print('clear')
 
 
