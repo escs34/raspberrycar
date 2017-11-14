@@ -20,8 +20,8 @@ echo=31
 GPIO.setup(trig,GPIO.OUT)
 GPIO.setup(echo,GPIO.IN)
 
-#return obstacle's distance
 def getDistance():
+'''return obstacle's distance'''
     GPIO.output(trig,False)
     time.sleep(0.5)
     GPIO.output(trig,True)

@@ -1,0 +1,19 @@
+이전 프로젝트에서의 문제점
+calibration이 너무 힘들었다.
+
+개선사항
+자동 calibration code를 만들자
+
+1. 이전에 4륜 구동차가 썼던 것처럼 config.txt파일을 둬서 거기에 세부 수치 조정사항을 입력하고
+읽어와서 달린다.
+
+2. calibration interface를 따로 둬서(정비사-운전사-자동차 가 좋으려나 mechanic)
+선을 따라 달리면서 점점 자동으로 calibration이 되게
+
+#원하는 기능
+2-1 manual calibration 달리다가 내가 보고 키보드 입력을 줘서 직선에 가깝게 수정
+
+2-2 auto calibration 선을 따라 달리면서 스스로 방향을 수정
+
+2-3 선을 놓치면 다시 찾는 알고리즘 (static method로 driver도 참고 할 수 있게)
+(missing chlid? i'm lost)미아

@@ -1,0 +1,13 @@
+알고리즘
+procedure lineTracing()
+	while True:
+		ultra check
+		line check
+		
+		if ultra not true:
+			turning
+
+		else:
+			go in line
+
+
