@@ -68,61 +68,56 @@ def avoid(direction):
 	dummy=1
 
 def lineTracking(direction):
-	'''선을 따라 주행 comment 입력 필요'''
+	'''선을 따라 주행 comment 입력 필요
+
+	r은 내부 l는 외부주행
+	내부 주행 외부 주행은 서로 요구하는 led방향이 반대
+	reverse 여부는 바퀴 출력 순서 반대
+	평가 요구사함
+	바깥은 좌회전으로
+	내부는 우회전으로
+	즉 서로 led와 바퀴 출력 순서가 반대
+
+	둘다 안들어온다면 지그재그 주행
+	'''
 	#li=trackingmodule.navigator()
 	#if li[2]==False:
 	#when input l
 	lSpeed=20
 	rSpeed=15
-	if direction == 'l':
-		li=trackingmodule.navigator()
-		if li[4]==False:
-			lSpeed=20
-			rSpeed=0
-		elif li[3]==False:
-			lSpeed=20
-			rSpeed=15
-		elif li[2]==False:
-			if li[1]==True:
-				lSpeed=20
-				rSpeed=15
-			else:
-				lSpeed=15
-				rSpeed=20
+	li=trackingmodule.navigator()
+	if direction == 'l' or direction == 'r':
+		if li[0]==False:
+			lSpeed=0
+			rSpeed=20
 		elif li[1]==False:
 			lSpeed=15
 			rSpeed=20
-		car.engine(True, True, lSpeed, rSpeed)
-		#print("???")
-		return True		
-		'''if li[4]==False or (li[4]==False and li[3]==False):
-			lSpeed=25
-			rSpeed=0
-		elif li[3]==False and li[2]==False:
-			lSpeed=25
-			rSpeed=20
-		elif li[3]==False:
-			lSpeed=25
-			rSpeed=0
-		elif li[2]==False and li[1]==False:
-			lSpeed=20
-			rSpeed=25
 		elif li[2]==False:
-			lSpeed=25
-			rSpeed=20
-		elif li[1]==False:
+			if li[1]==True:
+				lSpeed=15
+				rSpeed=20
+			else:
+				lSpeed=20
+				rSpeed=15
+		elif li[3]==False:
 			lSpeed=20
-			rSpeed=25
-		car.engine(True, True, lSpeed, rSpeed)
-		return True'''
-	"""rSpeed=25
-	lSpeed=25
-	li=[]
-	li=trackingmodule.navigator()#가야 할 방향과 속도를 알려줌
+			rSpeed=15
+		elif li[4]==False:
+			lSpeed=20
+			rSpeed=0
+		else:
+			car.engine(True, True, lSpeed, rSpeed)
+			sleep(0.01)
+		if direction =='l':
+			car.engine(True, True, lSpeed, rSpeed)
+		else:
+			car.engine(True, True, rSpeed, lSpeed)
+		return True	
 
-	if not li[0] and not li[1] and not li[2] and not li[3] and not li[4]:
-		return	False
 	else:
+		lSpeed=15
+		rSpeed=15
 		counter=0
 		while not li[3]==True:
 			li=trackingmodule.navigator()
@@ -153,28 +148,10 @@ def lineTracking(direction):
 			car.engine(True, True, 0, 15+counter)
 			sleep(0.1)
 			print(counter)
-			if counter<8:
+			if counter<10:
 				counter=counter+1
-		'''counter=0
-		while not(li[3]==True and li[4]==True):
-			li=trackingmodule.navigator()
-			car.engine(True, True, 15+counter, 0)
-			sleep(0.1)
-			if counter<5:
-				counter=counter+0.5
-			print(counter)
-		counter=0
-		while not(li[0] ==True and li[1] ==True):
-			li=trackingmodule.navigator()
-			car.engine(True, True, 0, 15+counter)
-			sleep(0.1)
-			print(counter)
-			if counter<5:
-				counter=counter+0.5'''
-		if li[0]==True and li[1]==True and li[3]==True and li[4]==True:
-			car.engine(True, True, 20, 20)
-			sleep(0.01)
-		if li[0] and li[1] and li[2] and li[3] and li[4]==True:
+		
+		if li[0] and li[1] and li[2] and li[3] and li[4]:
 			car.engine(True,True, 15, 15)
 			sleep(0.01)	
 	#car.engine(True, True, 25, 25)
@@ -196,7 +173,7 @@ def lineTracking(direction):
 		rSpeed=0;
 	'''
 	#car.engine(True, True, lSpeed, rSpeed)
-	return True"""
+	return True
 
 if __name__ == "__main__":
 	try:
