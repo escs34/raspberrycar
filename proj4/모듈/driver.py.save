@@ -67,55 +67,9 @@ def avoid(direction):
 	'''장애물 회피 comment 입력 필요'''
 	dummy=1
 
-def lineTracking(direction):
+def lineTracking():
 	'''선을 따라 주행 comment 입력 필요'''
-	#li=trackingmodule.navigator()
-	#if li[2]==False:
-	#when input l
-	lSpeed=20
-	rSpeed=15
-	if direction == 'l':
-		li=trackingmodule.navigator()
-		if li[4]==False:
-			lSpeed=20
-			rSpeed=0
-		elif li[3]==False:
-			lSpeed=20
-			rSpeed=15
-		elif li[2]==False:
-			if li[1]==True:
-				lSpeed=20
-				rSpeed=15
-			else:
-				lSpeed=15
-				rSpeed=20
-		elif li[1]==False:
-			lSpeed=15
-			rSpeed=20
-		car.engine(True, True, lSpeed, rSpeed)
-		#print("???")
-		return True		
-		'''if li[4]==False or (li[4]==False and li[3]==False):
-			lSpeed=25
-			rSpeed=0
-		elif li[3]==False and li[2]==False:
-			lSpeed=25
-			rSpeed=20
-		elif li[3]==False:
-			lSpeed=25
-			rSpeed=0
-		elif li[2]==False and li[1]==False:
-			lSpeed=20
-			rSpeed=25
-		elif li[2]==False:
-			lSpeed=25
-			rSpeed=20
-		elif li[1]==False:
-			lSpeed=20
-			rSpeed=25
-		car.engine(True, True, lSpeed, rSpeed)
-		return True'''
-	"""rSpeed=25
+	rSpeed=25
 	lSpeed=25
 	li=[]
 	li=trackingmodule.navigator()#가야 할 방향과 속도를 알려줌
@@ -124,58 +78,22 @@ def lineTracking(direction):
 		return	False
 	else:
 		counter=0
-		while not li[3]==True:
-			li=trackingmodule.navigator()
-			car.engine(True, True, 15+counter,0)
-			sleep(0.1)
-			print(counter)
-			if counter<5:
-				counter=counter+1
-		counter=0
-		while not li[4]==True:
-			li=trackingmodule.navigator()
-			car.engine(True, True, 15+counter, 0)
-			sleep(0.1)
-			print(counter)
-			if counter<10:
-				counter=counter+1
-		counter=0
-		while not li[0]==True:
-			li=trackingmodule.navigator()
-			car.engine(True, True, 0, 15+counter)
-			sleep(0.1)
-			print(counter)
-			if counter<5:
-				counter=counter+1
-		counter=0
-		while not li[1]==True:
-			li=trackingmodule.navigator()
-			car.engine(True, True, 0, 15+counter)
-			sleep(0.1)
-			print(counter)
-			if counter<8:
-				counter=counter+1
-		'''counter=0
 		while not(li[3]==True and li[4]==True):
 			li=trackingmodule.navigator()
 			car.engine(True, True, 15+counter, 0)
 			sleep(0.1)
-			if counter<5:
-				counter=counter+0.5
+			if counter>
+			counter=counter+1
 			print(counter)
 		counter=0
 		while not(li[0] ==True and li[1] ==True):
 			li=trackingmodule.navigator()
 			car.engine(True, True, 0, 15+counter)
 			sleep(0.1)
+			counter=counter+1
 			print(counter)
-			if counter<5:
-				counter=counter+0.5'''
 		if li[0]==True and li[1]==True and li[3]==True and li[4]==True:
 			car.engine(True, True, 20, 20)
-			sleep(0.01)
-		if li[0] and li[1] and li[2] and li[3] and li[4]==True:
-			car.engine(True,True, 15, 15)
 			sleep(0.01)	
 	#car.engine(True, True, 25, 25)
 	#sleep(1)
@@ -196,7 +114,7 @@ def lineTracking(direction):
 		rSpeed=0;
 	'''
 	#car.engine(True, True, lSpeed, rSpeed)
-	return True"""
+	return True
 
 if __name__ == "__main__":
 	try:
@@ -210,7 +128,7 @@ if __name__ == "__main__":
 			if distance <= dis:
 				avoid(Tmode)
 			else:
-				endline = lineTracking(Tmode)###dummy로 무한루프
+				endline = lineTracking()###dummy로 무한루프
 				
 		#차 시동을 끈다.
 		car.turnOff()

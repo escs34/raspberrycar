@@ -50,30 +50,30 @@ RightPwm=GPIO.PWM(MOTOR_RIGHT_PWM, 100)
 #public method
 
 def startUp():
-'''start the car
+	'''start the car
 
 	set both side of Pwm started
-'''
+	'''
 	LeftPwm.start(0)
 	RightPwm.start(0)
 	print("Vroom!")
 
 
 def engine(leftDirection, rightDirection, leftSpeed, rightSpeed):
-'''set engine to move
+	'''set engine to move
 
 	called function: setDirection and setSpeed
-'''
+	'''
 	setDirection(leftDirection, rightDirection)
 	setSpeed(leftSpeed, rightSpeed)
 
 def turnOff():
-'''turn off the car
+	'''turn off the car
 
 	Pwm off
 	change speed to 0
 	clean GPIO for car
-'''
+	'''
 	GPIO.output(MOTOR_LEFT_PWM, GPIO.LOW)
 	GPIO.output(MOTOR_RIGHT_PWM, GPIO.LOW)
 	LeftPwm.ChangeDutyCycle(0)
@@ -85,21 +85,21 @@ def turnOff():
 
 #private method
 def setDirection(leftDirection, rightDirection):
-'''set true false value to the motor
+	'''set true false value to the motor
 
 	Motors need True, False value for operating  
-'''
-	GPIO.output(MOTOR_LEFT_A, not leftDirection
+	'''
+	GPIO.output(MOTOR_LEFT_A, not leftDirection)
 	GPIO.output(MOTOR_LEFT_B, leftDirection)
 	GPIO.output(MOTOR_RIGHT_A, rightDirection)
 	GPIO.output(MOTOR_RIGHT_B, not rightDirection)
 
 
 def setSpeed(leftSpeed, rightSpeed):
-'''change motor speed
+	'''change motor speed
 
 	Set motor operating and then, change the speed
-'''
+	'''
 	GPIO.output(MOTOR_LEFT_PWM, GPIO.HIGH)
 	GPIO.output(MOTOR_RIGHT_PWM, GPIO.HIGH)
 	LeftPwm.ChangeDutyCycle(leftSpeed)
