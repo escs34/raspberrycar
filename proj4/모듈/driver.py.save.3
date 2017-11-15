@@ -65,22 +65,7 @@ def point_turn(direction, speed, term):
 
 def avoid(direction):
 	'''장애물 회피 comment 입력 필요'''
-	#sample code, 아마 도착시 대각선으로 닿아 있는 편이 좋을 듯
-	turn_way=True
-	if direction == 'r':
-		turn_way=False
-	swing_turn(turn_way, 40, 3)
-	go_forward(20)
-	sleep(1)
-	swing_turn(not turn_way, 20, 3)
-	go_forward(20)
-	sleep(1)
-	swing_turn(not turn_way, 20, 3)
-	go_forward(20)
-	sleep(1)
-	#여기까지 했는데 검은 선에 안닿았다. 이 경우 추가 코드 작성도 좋을듯
-	li=trackingmodule.navigator()
-	if 
+	dummy=1
 
 def lineTracking(direction):
 	'''선을 따라 주행 comment 입력 필요
@@ -95,32 +80,37 @@ def lineTracking(direction):
 
 	둘다 안들어온다면 지그재그 주행
 	'''
-
+	#li=trackingmodule.navigator()
+	#if li[2]==False:
 	#when input l
-	lSpeed=22
-	rSpeed=17
+	lSpeed=20
+	rSpeed=15
 	li=trackingmodule.navigator()
 	if direction == 'l' or direction == 'r':
 		if li[0]==False:
 			lSpeed=0
-			rSpeed=30
+			rSpeed=25
 		elif li[1]==False:
-			lSpeed=17
-			rSpeed=22
+			lSpeed=15
+			rSpeed=23
 		elif li[2]==False:
 			if li[1]==True:
-				lSpeed=17
-				rSpeed=22
+				lSpeed=15
+				rSpeed=23
 			else:
-				lSpeed=22
-				rSpeed=17
+				lSpeed=23
+				rSpeed=15
 		elif li[3]==False:
-			lSpeed=22
-			rSpeed=17
+			lSpeed=20
+			rSpeed=15
 		elif li[4]==False:
 			lSpeed=25
 			rSpeed=0
-		
+		else:
+			lSpeed=0
+			rSpeed=25
+		#	car.engine(True, True, lSpeed, rSpeed)
+		#	sleep(0.01)
 		if direction =='l':
 			car.engine(True, True, lSpeed, rSpeed)
 		else:
@@ -166,7 +156,25 @@ def lineTracking(direction):
 		if li[0] and li[1] and li[2] and li[3] and li[4]:
 			car.engine(True,True, 15, 15)
 			sleep(0.01)	
-
+	#car.engine(True, True, 25, 25)
+	#sleep(1)
+	'''	
+	if not li[1]:
+		rspeed=28
+	if not li[3]:
+		print("rl")
+		lspeed=28	
+	if not li[0]:
+		stop()
+		sleep(1)
+		lSpeed=0
+	if not li[4]:
+		stop()
+		sleep(1)
+		print("rm")
+		rSpeed=0;
+	'''
+	#car.engine(True, True, lSpeed, rSpeed)
 	return True
 
 if __name__ == "__main__":
