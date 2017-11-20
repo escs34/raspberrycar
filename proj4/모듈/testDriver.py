@@ -98,76 +98,46 @@ def lineTracking(direction):
 
 	#when input l
 	lSpeed=25
-	rSpeed=20
+	rSpeed=30
 	li=trackingmodule.navigator()
 	if direction == 'l' or direction == 'r':
-		if li[0]==False:
-			lSpeed=20
+		if li[0]==False and li[1]==False:
+			lSpeed=15
+			rSpeed=35
+		elif li[1]==False and li[2]==False:
+			pass
+			#lSpeed=25
+			#rSpeed=30
+		elif li[2]==False and li[3]==False:
+			pass
+			#lSpeed=25
+			#rSpeed=30
+		elif li[3]==False and li[4]==False:
+			lSpeed=30
 			rSpeed=25
+		elif li[0]==False:
+			lSpeed=15
+			rSpeed=30
 		elif li[1]==False:
 			lSpeed=20
-			rSpeed=25
+			rSpeed=30
 		elif li[2]==False:
-			if li[1]==False:
-				lSpeed=20
-				rSpeed=25
-			else:
-				lSpeed=25
-				rSpeed=20
+			pass
+			#lSpeed=25
+			#rSpeed=35
 		elif li[3]==False:
-			lSpeed=25
-			rSpeed=20
-		#elif li[4]==False:
-		#	lSpeed=25
-		#	rSpeed=0
-		
+			lSpeed=30
+			rSpeed=25
+		elif li[4]==False:
+			lSpeed=30
+			rSpeed=25
+
 		if direction =='l':
 			car.engine(True, True, lSpeed, rSpeed)
 		else:
 			car.engine(True, True, lSpeed, rSpeed+1)
-		return True	
+	return True	
 
-	else:
-		lSpeed=15
-		rSpeed=15
-		counter=0
-		while not li[3]==True:
-			li=trackingmodule.navigator()
-			car.engine(True, True, 15+counter,0)
-			sleep(0.1)
-			print(counter)
-			if counter<5:
-				counter=counter+1
-		counter=0
-		while not li[4]==True:
-			li=trackingmodule.navigator()
-			car.engine(True, True, 15+counter, 0)
-			sleep(0.1)
-			print(counter)
-			if counter<10:
-				counter=counter+1
-		counter=0
-		while not li[0]==True:
-			li=trackingmodule.navigator()
-			car.engine(True, True, 0, 15+counter)
-			sleep(0.1)
-			print(counter)
-			if counter<5:
-				counter=counter+1
-		counter=0
-		while not li[1]==True:
-			li=trackingmodule.navigator()
-			car.engine(True, True, 0, 15+counter)
-			sleep(0.1)
-			print(counter)
-			if counter<10:
-				counter=counter+1
-		
-		if li[0] and li[1] and li[2] and li[3] and li[4]:
-			car.engine(True,True, 15, 15)
-			sleep(0.01)	
-
-	return True
 
 if __name__ == "__main__":
 	try:

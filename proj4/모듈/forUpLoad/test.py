@@ -18,7 +18,7 @@
 '''
 
 import car
-import trackingmodule
+import lightTrack
 import ultraModule
 from time import sleep
 
@@ -82,7 +82,7 @@ def avoid(direction):
 	#li=trackingmodule.navigator()
 	#if 
 
-def lineTracking(direction):
+def lineTracking():
 	'''선을 따라 주행 comment 입력 필요
 
 	r은 내부 l는 외부주행
@@ -96,78 +96,23 @@ def lineTracking(direction):
 	둘다 안들어온다면 지그재그 주행
 	'''
 
-	#when input l
 	lSpeed=25
-	rSpeed=20
-	li=trackingmodule.navigator()
-	if direction == 'l' or direction == 'r':
-		if li[0]==False:
-			lSpeed=20
-			rSpeed=25
-		elif li[1]==False:
-			lSpeed=20
-			rSpeed=25
-		elif li[2]==False:
-			if li[1]==False:
-				lSpeed=20
-				rSpeed=25
-			else:
-				lSpeed=25
-				rSpeed=20
-		elif li[3]==False:
-			lSpeed=25
-			rSpeed=20
-		#elif li[4]==False:
-		#	lSpeed=25
-		#	rSpeed=0
-		
-		if direction =='l':
+	rSpeed=30
+	bit=lightTrack.navigator()
+	if bit & 1 == False:
+		car.engine(True, True, 0, rSpeed)
+	elif bit>>1 & 1 ==False:
+		car.engine(True, True, lSpeed, rSpeed)
+	elif bit>>2 & 1 ==False:
+		if bit>>3 & 1:
 			car.engine(True, True, lSpeed, rSpeed)
 		else:
-			car.engine(True, True, lSpeed, rSpeed+1)
-		return True	
+			car.engine(True, True, rSpeed, lSpeed)
+	elif bit>>3 & 1==False or bit>>4 & 1 ==False:
+		car.engine(True, True, rSpeed, lSpeed)
 
-	else:
-		lSpeed=15
-		rSpeed=15
-		counter=0
-		while not li[3]==True:
-			li=trackingmodule.navigator()
-			car.engine(True, True, 15+counter,0)
-			sleep(0.1)
-			print(counter)
-			if counter<5:
-				counter=counter+1
-		counter=0
-		while not li[4]==True:
-			li=trackingmodule.navigator()
-			car.engine(True, True, 15+counter, 0)
-			sleep(0.1)
-			print(counter)
-			if counter<10:
-				counter=counter+1
-		counter=0
-		while not li[0]==True:
-			li=trackingmodule.navigator()
-			car.engine(True, True, 0, 15+counter)
-			sleep(0.1)
-			print(counter)
-			if counter<5:
-				counter=counter+1
-		counter=0
-		while not li[1]==True:
-			li=trackingmodule.navigator()
-			car.engine(True, True, 0, 15+counter)
-			sleep(0.1)
-			print(counter)
-			if counter<10:
-				counter=counter+1
-		
-		if li[0] and li[1] and li[2] and li[3] and li[4]:
-			car.engine(True,True, 15, 15)
-			sleep(0.01)	
+	return True	
 
-	return True
 
 if __name__ == "__main__":
 	try:
@@ -175,15 +120,11 @@ if __name__ == "__main__":
 		dis=13###수정해도 됨 
 		#차 시동을 건다.
 		car.startUp()
-		endline= True
-		while endline:
-			distance = ultraModule.getDistance()###초음파센서
-			if distance <= dis:
-				avoid(Tmode)
-			else:
-				endline = lineTracking(Tmode)###dummy로 무한루프
-				
-		#차 시동을 끈다.
+		while True:
+			print(lightTrack.bit1())
+			print(ultraModule.getDistance())
+
+
 		car.turnOff()
 	#ctrl + c 키로 종료한 경우
 	except KeyboardInterrupt:

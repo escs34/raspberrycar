@@ -18,7 +18,7 @@
 '''
 
 import car
-import trackingmodule
+import trackingModule
 import ultraModule
 from time import sleep
 
@@ -65,22 +65,36 @@ def point_turn(direction, speed, term):
 
 def avoid(direction):
 	'''장애물 회피 comment 입력 필요'''
+	#dummy code
+	stop()
+	sleep(1)
+	#return 0
 	#sample code, 아마 도착시 대각선으로 닿아 있는 편이 좋을 듯
-	turn_way=True
-	if direction == 'r':
-		turn_way=False
-	swing_turn(turn_way, 40, 3)
-	go_forward(20)
-	sleep(1)
-	swing_turn(not turn_way, 20, 3)
-	go_forward(20)
-	sleep(1)
-	swing_turn(not turn_way, 20, 3)
-	go_forward(20)
-	sleep(1)
-	#여기까지 했는데 검은 선에 안닿았다. 이 경우 추가 코드 작성도 좋을듯
-	#li=trackingmodule.navigator()
-	#if 
+	stop()
+	sleep(0.1)
+
+	#회전
+	car.engine(True, False, 30, 30)
+
+	while ultraModule.getDistance()<25:
+		pass
+	stop()
+	sleep(0.1)
+
+	car.engine(True, True, 30, 30)
+	sleep(0.6)
+	stop()
+	sleep(0.1)
+		
+	#전진
+	car.engine(True, True, 20, 40) 
+	#sleep(1)
+	while not trackingModule.bit2():
+		pass
+	stop()
+	sleep(0.3)
+
+	car.engine(True, True, 30, 30)
 
 def lineTracking(direction):
 	'''선을 따라 주행 comment 입력 필요
@@ -92,96 +106,111 @@ def lineTracking(direction):
 	바깥은 좌회전으로
 	내부는 우회전으로
 	즉 서로 led와 바퀴 출력 순서가 반대
-
-	둘다 안들어온다면 지그재그 주행
 	'''
 
-	#when input l
-	lSpeed=25
-	rSpeed=20
-	li=trackingmodule.navigator()
-	if direction == 'l' or direction == 'r':
-		if li[0]==False:
-			lSpeed=20
-			rSpeed=25
-		elif li[1]==False:
-			lSpeed=20
-			rSpeed=25
-		elif li[2]==False:
-			if li[1]==False:
-				lSpeed=20
-				rSpeed=25
-			else:
-				lSpeed=25
-				rSpeed=20
-		elif li[3]==False:
-			lSpeed=25
-			rSpeed=20
-		#elif li[4]==False:
-		#	lSpeed=25
-		#	rSpeed=0
+	lSpeed=30
+	rSpeed=30
+	bit= trackingModule.navigator()
+	print(bit)
+	if direction == 'l':	
+		#바깥주행
+		if  bit==3 or bit<2:
+			car.engine(False, True, lSpeed, rSpeed)
+			count=0
+			while not trackingModule.bit2():
+				count+=1
+				print(count)
+				#차의 성능이 아니라 컴퓨터의 성능에 따라 갈리기 때문에 좋은 파트는 아닌듯
+				if count%1300==0:
+					car.engine(False, True, lSpeed+10, rSpeed)#배터리 딸려서 턴 제대로 안되면
+				elif count>60000:
+					car.engine(True, True, lSpeed, rSpeed)
+					sleep(0.01)
+					count=0
+				pass
+			stop()
+			sleep(0.1)
+			car.engine(True, True, lSpeed, rSpeed+5)
 		
-		if direction =='l':
-			car.engine(True, True, lSpeed, rSpeed)
-		else:
-			car.engine(True, True, lSpeed, rSpeed+1)
-		return True	
+		elif bit==8 or bit>15:
+			car.engine(True, False, lSpeed, rSpeed)
+			count=0
+			while not (trackingModule.bit2()):
+				count+=1
+				print(count)
+				if count%3000==0:
+					car.engine(True, False, lSpeed, rSpeed)##
+				if count>60000:
+					car.engine(True, True, lSpeed, rSpeed)##
+					sleep(0.01)
+					count=0
+				pass
+			stop()
+			sleep(0.1)
+			car.engine(True, True, lSpeed, rSpeed+5)
 
-	else:
-		lSpeed=15
-		rSpeed=15
-		counter=0
-		while not li[3]==True:
-			li=trackingmodule.navigator()
-			car.engine(True, True, 15+counter,0)
-			sleep(0.1)
-			print(counter)
-			if counter<5:
-				counter=counter+1
-		counter=0
-		while not li[4]==True:
-			li=trackingmodule.navigator()
-			car.engine(True, True, 15+counter, 0)
-			sleep(0.1)
-			print(counter)
-			if counter<10:
-				counter=counter+1
-		counter=0
-		while not li[0]==True:
-			li=trackingmodule.navigator()
-			car.engine(True, True, 0, 15+counter)
-			sleep(0.1)
-			print(counter)
-			if counter<5:
-				counter=counter+1
-		counter=0
-		while not li[1]==True:
-			li=trackingmodule.navigator()
-			car.engine(True, True, 0, 15+counter)
-			sleep(0.1)
-			print(counter)
-			if counter<10:
-				counter=counter+1
-		
-		if li[0] and li[1] and li[2] and li[3] and li[4]:
-			car.engine(True,True, 15, 15)
-			sleep(0.01)	
+	elif direction == 'r':
+		#안쪽 주행
+		if bit==24 or bit==16 or bit==0:
+			car.engine(True, False, lSpeed, rSpeed)
+			count=0
+			while not trackingModule.bit8():
+				count+=1
+				print(count)
+				if count%1400==0:
+					car.engine(True, False, lSpeed, rSpeed)
+				elif count>60000:
+					car.engine(True, True, lSpeed, rSpeed)
+					sleep(0.01)
+					count=0
+				pass
+			stop()
+			sleep(0.1)#해줘야 딱 특정 비트에 닿았을 때 라는 컨디션을 조절 가능
+			car.engine(True, True, lSpeed+2, rSpeed)
 
-	return True
+		elif 1<=bit<=3:
+			car.engine(False, True, lSpeed, rSpeed)
+			count=0
+			while not (trackingModule.bit8()):
+				count+=1
+				print(count)
+				if count %3000 ==0:
+					car.engine(False, True, lSpeed, rSpeed)
+				elif count>60000:
+					car.engine(True, True, lSpeed, rSpeed)
+					sleep(0.01)
+					count=0
+				pass
+			stop()
+			sleep(0.1)
+			car.engine(True, True, lSpeed+2, rSpeed)
+
+	return True	
+
+	
+
 
 if __name__ == "__main__":
 	try:
 		Tmode=input("choose 'l or 'r'")
-		dis=13###수정해도 됨 
+		dis=15###수정해도 됨 
 		#차 시동을 건다.
 		car.startUp()
 		endline= True
+		if Tmode =='l':
+			car.engine(True, True, 30, 35)
+		else:
+			car.engine(True, True, 35, 30)
+		sleep(0.1)
+
 		while endline:
 			distance = ultraModule.getDistance()###초음파센서
-			if distance <= dis:
+			#print("current distance: ", distance)
+			if 6< distance < dis:
 				avoid(Tmode)
+				print(distance)
 			else:
-				endline = lineTracking(Tmode)###dummy로 무한루프
+				endline = lineTracking(Tmode)
 				
 		#차 시동을 끈다.
 		car.turnOff()
