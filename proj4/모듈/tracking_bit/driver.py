@@ -89,7 +89,20 @@ def avoid(direction):
 	#전진
 	car.engine(True, True, 20, 40) 
 	#sleep(1)
+	while not trackingModule.bit8():
+		pass
+	stop()
+	sleep(0.3)
+
+	count=0
+	car.engine(True, True, 25, 0)
 	while not trackingModule.bit2():
+		count+=1
+		print(count)
+		if count%1500==0:
+			car.engine(True, True, 25, 0)
+		elif count>60000:
+			car.engine(True, True, 30, 30)	
 		pass
 	stop()
 	sleep(0.3)
@@ -112,6 +125,8 @@ def lineTracking(direction):
 	rSpeed=30
 	bit= trackingModule.navigator()
 	print(bit)
+	#if trackingModule.bitCount()>2:
+	#	return False
 	if direction == 'l':	
 		#바깥주행
 		if  bit==3 or bit<2:
