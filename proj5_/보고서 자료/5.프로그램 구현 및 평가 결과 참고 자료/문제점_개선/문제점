@@ -1,0 +1,120 @@
+문제점
+1. 검은 선에 닿았을 때 차가 반응하는 속도가 느리다.
+
+2. 방향을 잘못 틀은 후 센서의 반응이 느려서 계속 회전을 한다.
+
+
+
+ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+분석
+1.raspberry pi에서 처리하는 속도가 느리다.
+
+
+2.car에서 처리 하는 속도가 느리다.
+(유력)
+모터에 속도 방향이 입력되는 속도가 너무 빠르다.(차가 버벅거리거나 이동하지 않고 멈춰 있는 이유인듯)
+
+
+
+
+
+ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+
+
+가설
+1. 방향 전달에 리스트를 사용해서 전달에 시간이 오래 걸린다.
+=>리스트가 아니라 비트를 받아서 넘기자
+
+2.알고리즘 구조에 방향을 바꾸든 말든 무조건 car.engine을 다시 불러서 car.engine의 불규칙할 실행 명령이 끝날
+때 까지 센서 확인을 하지 못했다.(유력)
+=>1)engine에 sleep(0.1)을 줘서 함수가 수행되는 시간을 일정하게 고정한다.
+or
+=>2)알고리즘 수정
+	while check!=True:
+		ultraValue from ultraModule
+		if ultraValue < distance:
+			turning
+		else:
+			check = lineTracking()
+에서
+	while check!=True:
+		car.engine(True,True, L, R)
+		while needToBeChangeWay:
+			ultraValue from ultraModule
+			if ultraValue < distance:
+				turning
+			else:
+				needToBeChangeWay=isOnWay()
+				#
+		
+or
+
+	def lineTracking():
+		2 or 2and1 or 2and3일때는 변경 명령 안주게?
+
+or
+	isCurve?
+	isOnWay?
+
+
+(1번비교)
+ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+3.함수를 여러번 중첩사용해 context switch 가 일어나서 느려졌다.
+=>이중 함수를 전부 없앤다.
+확장
+==>함수에서 처리하는 게 아니라 main 함수에서 처리한다.
+확장
+===>모듈을 나누지 말고 합쳐서 한 파일에서 실행한다.
+
+
+
+
+4. 전진 주행이랑 커브주행을 모드를 나눈다.
+(2번비교)
+ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+
+
+1트라이
+engine을써서
+2트라이 
+모터의 속도만 건드려서 따로따로
+
+
+
+그냥 반응 하는 속도가 너무 느림
+
+함수를 풀어보자
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

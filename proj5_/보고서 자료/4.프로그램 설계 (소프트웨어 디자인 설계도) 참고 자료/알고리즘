@@ -1,0 +1,13 @@
+알고리즘
+procedure lineTracing()
+	#선을 따라 도착지점에 도착할때까지 움직입니다.
+	#장애물에 근접하면 회피합니다.
+	distance #장애물 발견시 접근거리
+	while check!=True:
+		check = lineValue from trackingmodule
+
+while stateChanged:
+	if a: forward
+	elif b: Uturn
+	elif c: leftTurn
+	elif d: rightTurn
