@@ -22,35 +22,6 @@ import trackingmodule
 import ultraModule
 from time import sleep
 
-#전진
-def go_forward(speed):
-	car.engine(True, True, speed, speed+0.7)
-#후진
-def go_backward(speed):
-	car.engine(False, False, speed, speed-4.8)
-#멈춤	
-def stop():
-	car.engine(True, True, 0, 0)
-
-#direction이 True이면 left, False이면 right으로 swing turn
-def swing_turn(direction, speed, term):
-	car.engine(True, True, speed * not direction, speed * direction)
-	sleep(term)
-
-#direction이 True이면 left, False이면 right으로 point turn
-def point_turn(direction, speed, term):
-	car.engine(not direction, direction, speed, speed)
-	sleep(term)
-
-
-
-def avoid(direction):
-	dummy=1
-
-
-
-def lineTracking(speed):
-	dummy=1
 
 
 
@@ -63,11 +34,13 @@ if __name__ == "__main__":
 		while endline!=True:
 			way = trackingmodule.myPosition()
 			distance = ultraModule.getDistance()
-			if distance <= dis:
-				avoid(Tmode)
+			print(distance)
+			#if distance <= dis:
+				
+				#avoid(Tmode)
 				#속도를 줄여서 라인트레킹 고려
-			else:
-				endline = lineTracking(speed)
+			#else:
+				#endline = lineTracking(speed)
 				
 		#차 시동을 끈다.
 		car.turnOff()
@@ -77,5 +50,6 @@ if __name__ == "__main__":
 	#오류로 인한 종료 시 시동끄기 함수 호출. 없다면 오류로 프로그램이 종료된 이후에도 바퀴가 돌 수 있다.
 	finally:
 		car.turnOff()
+
 
 

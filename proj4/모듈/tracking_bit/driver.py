@@ -212,20 +212,20 @@ if __name__ == "__main__":
 		#차 시동을 건다.
 		car.startUp()
 		endline= True
-		if Tmode =='l':
-			car.engine(True, True, 30, 35)
+		'''if Tmode =='l':
+		#	car.engine(True, True, 30, 35)
 		else:
 			car.engine(True, True, 35, 30)
-		sleep(0.1)
+		sleep(0.1)'''
 
 		while endline:
 			distance = ultraModule.getDistance()###초음파센서
-			#print("current distance: ", distance)
-			if 6< distance < dis:
+			print("current distance: ", distance)
+			'''if 6< distance < dis:
 				avoid(Tmode)
 				print(distance)
 			else:
-				endline = lineTracking(Tmode)
+				endline = lineTracking(Tmode)'''
 				
 		#차 시동을 끈다.
 		car.turnOff()

@@ -19,31 +19,30 @@
 
 import car
 import trackingModule
-import ultraModule
-import sleep
+import time
 
-def turn_left:
+def turn_left():
 	dummy=0
 
-def turn_right:
+def turn_right():
 	dummy=0
 
-def U_turn:
+def U_turn():
 	dummy=0
 
 def find_way():
 	switch=1
 	while switch:
-		if need rightT:
+		if False:#need rightT:
 			turn_right()
 			switch=0
-		elif need leftT:
+		elif False:#need leftT:
 			turn_left()
 			switch=0
-		elif need U_turn():
+		elif False:#need U_turn():
 			U_turn()
 			switch=0
-		elif return_to_center():
+		elif False:#return_to_center():
 			gogo_dummy=1
 			if trackingModule.bitCount()==5:
 				return False
@@ -65,10 +64,25 @@ def lineTracking():
 if __name__ == "__main__":
 	try:
 		#차 시동을 건다.
+		
 		car.startUp()
+		print("??")
+		time.sleep(1)
+		car.setDirection(True, True)
+		#lineTracking()
+		car.setSpeed(30,30)
+		print("!!")
+		car.setSpeed(30,20)
+		time.sleep(1)
 
-		lineTracking()
-				
+		car.setSpeed(20,30)
+		time.sleep(1)
+		car.setSpeed(30,30)
+		time.sleep(1)
+	
+		time.sleep(1)
+		car.setSpeed(0, 0)		
+		
 		#차 시동을 끈다.
 		car.turnOff()
 	#ctrl + c 키로 종료한 경우

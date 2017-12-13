@@ -56,6 +56,8 @@ def startUp():
 	'''
 	LeftPwm.start(0)
 	RightPwm.start(0)
+	GPIO.output(MOTOR_LEFT_PWM, GPIO.HIGH)
+	GPIO.output(MOTOR_RIGHT_PWM, GPIO.HIGH)
 	print("Vroom!")
 
 
@@ -100,22 +102,10 @@ def setSpeed(leftSpeed, rightSpeed):
 
 	Set motor operating and then, change the speed
 	'''
-	GPIO.output(MOTOR_LEFT_PWM, GPIO.HIGH)
-	GPIO.output(MOTOR_RIGHT_PWM, GPIO.HIGH)
 	LeftPwm.ChangeDutyCycle(leftSpeed)
 	RightPwm.ChangeDutyCycle(rightSpeed)
 
 
-
-def setSpeed2(leftSpeed, rightSpeed):
-	'''change motor speed
-
-	Set motor operating and then, change the speed
-	'''
-	#GPIO.output(MOTOR_LEFT_PWM, GPIO.HIGH)
-	#GPIO.output(MOTOR_RIGHT_PWM, GPIO.HIGH)
-	LeftPwm.ChangeDutyCycle(leftSpeed)
-	RightPwm.ChangeDutyCycle(rightSpeed)
 
 
 
